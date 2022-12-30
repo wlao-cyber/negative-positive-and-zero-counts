@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- author: Wilson Lao -->
+	<meta charset="utf-8">
+	<title>Counting Negative, Positive, and Zero Numbers</title>
+	<meta name="description" content="form text boxes continued">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		
+	
+	<script>
+
+		// the jQuery script needs to use "#results" with # in front or just "textarea".
+		// placing the jQuery script first before the function seems to allow fading
+		// before results show up.
+		
+		$(document).ready(function(){
+		  $("#fade").click(function(){
+			$("#results").fadeTo("slow",0.25);
+		  });
+		});
+
+		// Adding another jQuery script to give the option of unfading
+		$(document).ready(function(){
+		  $("#unfade").click(function(){
+			$("#results").fadeTo("slow",1);
+		  });
+		});
+
+		function calculations()
+		{
+		var number1, number2, number3, number4, number5,
+		int1, int2, int3, int4, int5, sum, countneg, countpos, countzero;
+		number1 = document.getElementById("num1").value;
+		number2 = document.getElementById("num2").value;
+		number3 = document.getElementById("num3").value;
+		number4 = document.getElementById("num4").value;
+		number5 = document.getElementById("num5").value;
+
+		//parseInt to normalize number input into integers
+		//parseInt will also return NaN if input is NOT a number, as in the case of null input
+		int1 = parseInt(number1);
+		int2 = parseInt(number2);
+		int3 = parseInt(number3);
+		int4 = parseInt(number4);
+		int5 = parseInt(number5);
+
+		//Making sure to set the counter variables starting at zero. 
+		//Will incrementally add if applicable conditions met.
+		countneg = 0;
+		countpos = 0;
+		countzero = 0;
+
+		sum = int1 + int2 + int3 + int4 + int5;
+		
+		// Because of type="number" requirement in form inputs, only numbers should be allowed
+		// But still need to watch out for NaN if inputs are left blank. 
+		// if else statement checks if sum is an integer
+		// Otherwise, user will be asked to enter integer in each input box.
+		// This condition is still good for checking if there are any NaN but will force 
+		// the user to input a value in each input box.
+		if (Number.isInteger(sum))
+		{
+			//trying to count negative, positive, zero numbers without loops
+			//Using add by value/assignment with addition operator to count
+			//Use Math.sign() to check if each number is negative, zero, or positive
+			if (Math.sign(number1) === -1)
+			{
+				countneg += 1
+			}
+			if (Math.sign(number2) === -1)
+			{
+				countneg += 1
+			}
+			if (Math.sign(number3) === -1)
+			{
+				countneg += 1
+			}
+			if (Math.sign(number4) === -1)
+			{
+				countneg += 1
+			}
+			if (Math.sign(number5) === -1)
+			{
+				countneg += 1
+			}
+			if (Math.sign(number1) === 0)
+			{
+				countzero += 1
+			}
+			if (Math.sign(number2) === 0)
+			{
+				countzero += 1
+			}
+			if (Math.sign(number3) === 0)
+			{
+				countzero += 1
+			}
+			if (Math.sign(number4) === 0)
+			{
+				countzero += 1
+			}
+			if (Math.sign(number5) === 0)
+			{
+				countzero += 1
+			}
+			if (Math.sign(number1) === 1)
+			{
+				countpos += 1
+			}
+			if (Math.sign(number2) === 1)
+			{
+				countpos += 1
+			}
+			if (Math.sign(number3) === 1)
+			{
+				countpos += 1
+			}
+			if (Math.sign(number4) === 1)
+			{
+				countpos += 1
+			}
+			if (Math.sign(number5) === 1)
+			{
+				countpos += 1
+			}
+			
+			//only one document.getElementById("results").value statement to concatenate all results
+			document.getElementById("results").value = "There are " + countneg + " negative numbers.\n" + 
+			"There are " + countzero + " zeroes.\n" + "There are " + countpos + " positive numbers.";
+		}
+		else{
+			document.getElementById("results").value = "Please enter a number in each input box!";
+		}
+		}
+	</script>
+	
+	<!-- Using CSS to align input boxes -->
+	<!-- align input text to the right as well-->
+	<style>
+	h1 {font-size: 3em; color:blue; text-align:center; font-style:italic}
+	h2 {font-size: 1em; color:black; text-align:left; font-weight:bold}
+	body {background-color:silver; font-size:1.5em}
+	p     { display: table-row;  }
+	label { display: table-cell; }
+	input { display: table-cell; text-align: right; font-size: 20px;}
+	textarea {font-size: 20px;}
+	</style>
+</head>
+
+<body>
+<header>
+	<h1>Counting Negative, Positive, and Zero Numbers</h1>
+</header>
+
+<section>
+<h2>Enter 5 numbers. You will get the count of negative numbers, positive numbers, and zeroes.</h2>
+
+<form>
+	<!-- Using label tags to make input more user-friendly-->
+	<!-- only allowing numbers to be entered but still need to watch out for null entries-->
+	<!-- reset button to clear all input values-->
+	<p>
+		<label for="num1">First Number: </label>
+		<input id="num1" type="number">
+	</p>
+	<p>
+		<label for="num2">Second Number:&nbsp;</label>
+		<input id="num2" type="number">
+	</p>
+	<p>
+		<label for="num3">Third Number: </label>
+		<input id="num3" type="number">
+	</p>
+	<p>
+		<label for="num4">Fourth Number: </label>
+		<input id="num4" type="number">
+	</p>
+	<p>
+		<label for="num5">Fifth Number: </label>
+		<input id="num5" type="number">
+	</p>
+	
+	<input type="button" onclick="calculations()" value="SUBMIT">
+	<input type="reset" value="RESET">
+</form>
+
+</section>
+
+<section>
+<h2>Results</h2>
+<!-- making the textbox smaller this time in comparison to Part 2. 5 rows instead of 10-->
+<textarea name="results" id="results" rows="5" cols="100" readonly></textarea><br>
+
+<!-- A button for fading and another for unfading-->
+<button id="fade">Click to Fade Results</button>
+<button id="unfade">Click to Unfade Results</button>
+</section>
+
+<footer>
+<br><br><br>
+<a href="https://wlao-cyber.github.io/">Return to Main Page</a>
+</footer>
+
+</body>
+
+</html>
